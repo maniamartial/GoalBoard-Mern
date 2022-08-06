@@ -67,9 +67,14 @@ const loginUser = asyncHandler(async (req, res) => {
 //@desc Get User Data
 //@route GET  /api/users/getme
 //@access Public
-const getMe = (req, res) => {
-  res.status(200).json({ message: "get users data" });
-};
+const getMe = asyncHandler(async (req, res) => {
+  const { _id, name, email } = await User.findById(req.user.id);
+  res.status(200).json({
+    id: _id,
+    name,
+    email,
+  });
+});
 
 //generate a token JWT
 

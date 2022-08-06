@@ -6,11 +6,13 @@ const {
   updateGoal,
   deleteGoal,
 } = require("../controllers/goalController");
+
+const { protect } = require("../middleware/authMiddleware");
 //Follow crude
 //Extract data from db
 //router.get("/", getGoals);
-router.route("/").get(getGoals).post(setGoals);
-router.route("/:id").delete(deleteGoal).put(updateGoal);
+router.route("/").get(protect, getGoals).post(protect, setGoals);
+router.route("/:id").delete(protect, deleteGoal).put(protect, updateGoal);
 //user to post data
 //router.post("/", setGoals);
 
