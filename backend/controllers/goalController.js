@@ -14,6 +14,7 @@ const getGoals = asyncHandler(async (req, res) => {
 //@route PUT/api/goals
 //@access Private
 const setGoals = asyncHandler(async (req, res) => {
+  //create is a keyword which accepts and write the new data to the database
   const goal = await Goal.create({
     text: req.body.text,
     user: req.user.id,
@@ -21,14 +22,15 @@ const setGoals = asyncHandler(async (req, res) => {
   res.status(200).json(goal);
 });
 
-//Updating data
+//Updating data /modify
 const updateGoal = asyncHandler(async (req, res) => {
   const goal = await Goal.findById(req.params.id);
-
+  //confirm if the loggedin User has any goal in the db
   if (!goal) {
     res.status(400);
     throw new Error("Goal not found");
   }
+  //lets find the current user id
   const user = await User.findById(req.user.id);
   //check the availability of the user
   if (!user) {
