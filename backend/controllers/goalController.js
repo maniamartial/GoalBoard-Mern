@@ -42,6 +42,8 @@ const updateGoal = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
+
+  //findByIdUpdate is akeyword functionality to modify already existing data
   const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -51,6 +53,7 @@ const updateGoal = asyncHandler(async (req, res) => {
 const deleteGoal = asyncHandler(async (req, res) => {
   const goal = await Goal.findById(req.params.id);
 
+  //Confirm if the item exist for the current user
   if (!goal) {
     res.status(400);
     throw new Error("Goal not found");
@@ -67,12 +70,11 @@ const deleteGoal = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-
   await goal.remove();
 
   res.status(200).json({ id: req.params.id });
 });
-
+//export all functions to be used with an external file
 module.exports = {
   getGoals,
   setGoals,
