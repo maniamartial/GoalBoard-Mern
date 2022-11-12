@@ -1,6 +1,6 @@
 A simple system with authentication and authoriztion 
 
-##Technologies
+##Technologies used
 MERN
 MongoDB
 Exress
